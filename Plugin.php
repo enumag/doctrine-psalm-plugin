@@ -27,10 +27,14 @@ class Plugin implements PluginEntryPointInterface
     /** @return string[] */
     private function getStubFiles(): array
     {
-        return array_merge(
-            glob(__DIR__ . '/stubs/*.php') ?: [],
-            glob(__DIR__ . '/stubs/DBAL/*.php') ?: []
-        );
+        $files = glob(__DIR__ . '/' . 'stubs/*.php');
+        if ($this->hasPackage('doctrine/collections')) {
+            [$ver,] = explode('@', $this->getPackageVersion('doctrine/collections'));
+            if (version_compare($ver, 'v1.6.0', '>=')) {
+                $files = preg_grep('/Collections\.php$/', $files, PREG_GREP_INVERT);
+            }
+        }
+        return array_merge($files, glob(__DIR__ . '/stubs/DBAL/*.php') ?: []);
     }
 
     /** @return string[] */
