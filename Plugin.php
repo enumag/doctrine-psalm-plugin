@@ -10,7 +10,12 @@ use SimpleXMLElement;
 
 use function array_merge;
 use function class_exists;
+use function explode;
 use function glob;
+use function preg_grep;
+use function version_compare;
+
+use const PREG_GREP_INVERT;
 
 class Plugin implements PluginEntryPointInterface
 {
@@ -29,11 +34,12 @@ class Plugin implements PluginEntryPointInterface
     {
         $files = glob(__DIR__ . '/' . 'stubs/*.php');
         if ($this->hasPackage('doctrine/collections')) {
-            [$ver,] = explode('@', $this->getPackageVersion('doctrine/collections'));
+            [$ver] = explode('@', $this->getPackageVersion('doctrine/collections'));
             if (version_compare($ver, 'v1.6.0', '>=')) {
                 $files = preg_grep('/Collections\.php$/', $files, PREG_GREP_INVERT);
             }
         }
+
         return array_merge($files, glob(__DIR__ . '/stubs/DBAL/*.php') ?: []);
     }
 
