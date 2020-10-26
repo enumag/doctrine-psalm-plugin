@@ -40,7 +40,8 @@ Feature: Expr
       );
       """
     When I run Psalm
-    Then I see no errors
+    Then I see these errors
+      | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX has been marked as deprecated |
 
   @ExpressionBuilder
   Scenario: ExpressionBuilder::orX() accepts variadic arguments
@@ -53,4 +54,5 @@ Feature: Expr
       );
       """
     When I run Psalm
-    Then I see no errors
+    Then I see these errors
+      | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX has been marked as deprecated |

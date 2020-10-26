@@ -87,7 +87,11 @@ Feature: QueryBuilderDbal
       builder()->where($orx)->andWhere($orx)->orWhere($orx);
       """
     When I run Psalm
-    Then I see no errors
+    Then I see these errors
+      | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX has been marked as deprecated   |
+      | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\CompositeExpression::add has been marked as deprecated |
+      | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\CompositeExpression::add has been marked as deprecated |
+
 
   @QueryBuilderDbal
   Scenario: Dbal QueryBuilder ::groupBy ::addGroupBy accept variadic arguments
@@ -128,4 +132,7 @@ Feature: QueryBuilderDbal
       builder()->having($andx)->orHaving($andx)->andHaving($andx);
       """
     When I run Psalm
-    Then I see no errors
+    Then I see these errors
+      | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\ExpressionBuilder::andX has been marked as deprecated |
+
+
