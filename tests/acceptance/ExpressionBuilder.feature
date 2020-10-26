@@ -32,7 +32,8 @@ Feature: Expr
 
   @ExpressionBuilder
   Scenario: ExpressionBuilder::andX() accepts variadic arguments
-    Given I have the following code
+    Given I have the "doctrine/dbal" package satisfying the ">= 2.11"
+    And I have the following code
       """
       builder()->expr()->andX(
         'foo > bar',
@@ -41,11 +42,25 @@ Feature: Expr
       """
     When I run Psalm
     Then I see these errors
-      | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX has been marked as deprecated |
+      | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\ExpressionBuilder::andX has been marked as deprecated |
+
+  @ExpressionBuilder
+  Scenario: ExpressionBuilder::andX() accepts variadic arguments
+    Given I have the "doctrine/dbal" package satisfying the "< 2.11"
+    And I have the following code
+      """
+      builder()->expr()->andX(
+        'foo > bar',
+        'foo < baz'
+      );
+      """
+    When I run Psalm
+    Then I see no errors
 
   @ExpressionBuilder
   Scenario: ExpressionBuilder::orX() accepts variadic arguments
-    Given I have the following code
+    Given I have the "doctrine/dbal" package satisfying the ">= 2.11"
+    And I have the following code
       """
       $expr = builder()->expr();
       $expr->orX(
@@ -56,3 +71,18 @@ Feature: Expr
     When I run Psalm
     Then I see these errors
       | DeprecatedMethod | The method Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX has been marked as deprecated |
+
+  @ExpressionBuilder
+  Scenario: ExpressionBuilder::orX() accepts variadic arguments
+    Given I have the "doctrine/dbal" package satisfying the "< 2.11"
+    And I have the following code
+      """
+      $expr = builder()->expr();
+      $expr->orX(
+        $expr->eq('foo', 1),
+        $expr->eq('bar', 1)
+      );
+      """
+    When I run Psalm
+    Then I see no errors
+
