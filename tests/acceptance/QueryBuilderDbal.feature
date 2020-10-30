@@ -107,7 +107,6 @@ Feature: QueryBuilderDbal
     When I run Psalm
     Then I see no errors
 
-
   @QueryBuilderDbal
   Scenario: Dbal QueryBuilder ::groupBy ::addGroupBy accept variadic arguments
     Given I have the following code
@@ -161,5 +160,3 @@ Feature: QueryBuilderDbal
       """
     When I run Psalm
     Then I see no errors
-
-
