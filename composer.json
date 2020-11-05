@@ -33,7 +33,7 @@
     "autoload-dev": {
         "psr-4": {
             "Weirdan\\DoctrinePsalmPlugin\\Tests\\": [
-                "tests/_support", 
+                "tests/_support",
                 "tests/acceptance"
             ]
         }
@@ -44,7 +44,7 @@
         "weirdan/codeception-psalm-module": "^0.9.1",
         "doctrine/doctrine-bundle": "^1.11 || ^2.0",
         "phly/keep-a-changelog": "^2.1",
-        "doctrine/coding-standard": "^7.0"
+        "doctrine/coding-standard": "^8.0"
     },
     "scripts": {
         "check": [
